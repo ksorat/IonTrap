@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Params>
+  <particle species="Hepp"/>
+  <energy N="20" min="5.0" max="100.0"/>
+  <radius min="16.5" max="17.4" N="10"/>
+  <phi min="135" max="138" N="10"/>
+  <psi min="0" max="360" N="1"/>
+  <alpha min="10" max="90" N="5"/>
+  <time tfin="4500.0" Ns="10" Nf="100" T0="3225.8496"/>
+  <integrator dt="0.1" method="fp"/>
+  <field infile = "ebtab.txt" static="F" dB="T" electric="T" dipole="F"/>
+  <output outdir="outHepp" trace="F" mu="T" />
+</Params>
