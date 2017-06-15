@@ -16,12 +16,11 @@ lfmv.ppInit()
 
 BaseP = "~/Work/IonTrap/Data/KCyl/"
 IDs = ["p","Hep","Hepp"]
+doSub0 = True #Subtract background (t=0)
+
 i = 0
 
-#x0 = -1.0
-#y0 = 6.0
-
-x0 = 1.0
+x0 = -1.0
 y0 = 6.0
 
 Nk = 100
@@ -58,6 +57,10 @@ for i in range(Nt):
 	iPts[:,3] = Tkc[i]
 	Isc[i,:] = Ii(iPts)
 
+if (doSub0):
+	Ik0 = Isc[0,:]
+	for i in range(Nt):
+		Isc[i,:] = Isc[i,:] - Ik0
 #Now make figure
 vMin = 1.0
 vMax = 1.0e+6
