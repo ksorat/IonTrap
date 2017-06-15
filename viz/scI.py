@@ -17,8 +17,13 @@ lfmv.ppInit()
 BaseP = "~/Work/IonTrap/Data/KCyl/"
 IDs = ["p","Hep","Hepp"]
 i = 0
-x0 = -1.0
-y0 = 6.0
+
+#x0 = -1.0
+#y0 = 6.0
+
+x0 = 0.0
+y0 = 7.0
+
 Nk = 100
 iScl = 1.0/(4.0*np.pi)
 fOut = "Ifig.png"
