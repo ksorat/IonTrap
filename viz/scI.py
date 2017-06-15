@@ -18,14 +18,14 @@ BaseP = "~/Work/IonTrap/Data/KCyl/"
 IDs = ["p","Hep","Hepp"]
 doSub0 = True #Subtract background (t=0)
 
-i = 0
+i = 1
 
 x0 = -1.0
 y0 = 6.0
 
 Nk = 100
 iScl = 1.0/(4.0*np.pi)
-fOut = "Ifig.png"
+fOut = "Ifig_"+Ids[i]".png"
 figQ = 300
 
 Sig = -1
@@ -48,6 +48,7 @@ p0 = np.arctan2(y0,x0)
 Nt = Tkc.shape[0]
 
 Isc = np.zeros((Nt,Nk))
+Isc0 = np.zeros((Nt,Nk))
 iPts = np.zeros((Nk,4))
 
 for i in range(Nt):
@@ -60,15 +61,16 @@ for i in range(Nt):
 if (doSub0):
 	Ik0 = Isc[0,:]
 	for i in range(Nt):
-		Isc[i,:] = Isc[i,:] - Ik0
+		Isc0[i,:] = Isc[i,:] - Ik0
+
 #Now make figure
 vMin = 1.0
 vMax = 1.0e+6
 cMap = "jet"
 vNorm = LogNorm(vmin=vMin,vmax=vMax)
 
-plt.pcolormesh(Tkc,Ksc,iScl*Isc.T,norm=vNorm,cmap=cMap)
-plt.yscale('log')
+plt.pcolormesh(Tkc,Ksc,iScl*Isc0.T,norm=vNorm,cmap=cMap)
+#plt.yscale('log')
 plt.ylim([50,1.0e+3])
 plt.colorbar()
 
