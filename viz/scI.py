@@ -25,7 +25,7 @@ y0 = 6.0
 
 Nk = 100
 iScl = 1.0/(4.0*np.pi)
-fOut = "Ifig_"+Ids[i]".png"
+fOut = "Ifig_"+Ids[i]+".png"
 figQ = 300
 
 Sig = -1
