@@ -95,7 +95,7 @@ for t in range(Nt):
 		h5ps = glob.glob(gStr)
 		h5pf = h5ps[0]
 
-		Ax = fig.add_subplot(gs[s+1,t])
+		Ax = fig.add_subplot(gs[s,t])
 		if (t == 0):
 			plt.ylabel(Spcs[s],fontsize="large")
 		elif (t == Nt-1):

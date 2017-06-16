@@ -47,6 +47,7 @@ for ns in range(NumS):
 	
 	#Have interpolant, now construct SC data
 	Ksc = np.logspace(np.log10(kMin),np.log10(kMax),Nk)
+	#Ksc = np.linspace(kMin,kMax,Nk)
 	r0 = np.sqrt(x0**2.0+y0**2.0)
 	p0 = np.arctan2(y0,x0)
 	Nt = Tkc.shape[0]
