@@ -16,8 +16,8 @@ lfmv.ppInit()
 
 BaseP = "~/Work/IonTrap/Data/KCyl/"
 IDs = ["p","Hep","Hepp"]
-doSub0 = True #Subtract background (t=0)
-
+doDelI = False #Subtract background (t=0)
+doI = True
 
 x0 = -1.0
 y0 = 6.0
@@ -26,11 +26,14 @@ Nk = 100
 iScl = 1.0/(4.0*np.pi)
 figQ = 300
 Sig = -1
+TINY = 1.0e-2
+
 imeth = 'linear'
 
 NumS = len(IDs)
+NumS = 1
 for ns in range(NumS):
-	fOut = "Ifig_"+IDs[ns]+".png"
+	
 	fIn = os.path.expanduser('~') + "/Work/IonTrap/Data/KCyl/KCyl_" + IDs[ns] + ".h5"
 	
 	#Interpolate from simulation
@@ -49,6 +52,8 @@ for ns in range(NumS):
 	
 	Isc = np.zeros((Nt,Nk))
 	Isc0 = np.zeros((Nt,Nk))
+	dK = np.zeros((Nt,Nk))
+	dkScl = np.ones(Nk)
 	iPts = np.zeros((Nk,4))
 	
 	for i in range(Nt):
@@ -57,22 +62,43 @@ for ns in range(NumS):
 		iPts[:,2] = Ksc
 		iPts[:,3] = Tkc[i]
 		Isc[i,:] = Ii(iPts)
+	Isc = iScl*Isc
 	
-	if (doSub0):
-		Ik0 = Isc[0,:]
-		for i in range(Nt):
-			Isc0[i,:] = Isc[i,:] - Ik0
-	
-	#Now make figure
+	Ik0 = Isc[0,:]
+	Ind = Ik0<TINY
+	dK0 = Ik0
+	dK0[Ind] = 1.0
+	dkScl[Ind] = 0.0
+
+	for i in range(Nt):
+		Isc0[i,:] = Isc[i,:] - Ik0
+		dK[i,:] = dkScl*Isc[i,:]/dK0	
+
+	#Now make figures
 	vMin = 1.0
 	vMax = 1.0e+6
 	cMap = "jet"
 	vNorm = LogNorm(vmin=vMin,vmax=vMax)
-	
-	plt.pcolormesh(Tkc,Ksc,iScl*Isc0.T,norm=vNorm,cmap=cMap)
-	plt.yscale('log')
-	plt.ylim([50,1.0e+3])
-	plt.colorbar()
-	
-	plt.savefig(fOut,dpi=figQ)
-	plt.close('all')
+	if (doDelI):
+		plt.pcolormesh(Tkc,Ksc,Isc0.T,norm=vNorm,cmap=cMap)
+		plt.yscale('log')
+		plt.ylim([50,1.0e+3])
+		plt.colorbar()
+		fOut = "dI_"+IDs[ns]+".png"
+		print("Writing figure %s"%(fOut))
+		plt.savefig(fOut,dpi=figQ)
+		plt.close('all')
+	if (doI):
+		plt.pcolormesh(Tkc,Ksc,Isc.T,norm=vNorm,cmap=cMap)
+		plt.yscale('log')
+		plt.ylim([50,1.0e+3])
+		plt.colorbar()
+		#V = [1.2,2,5,10,20,50,100]
+		V = [1.5,2,4,5,6,7,8,9,10]
+		print(V)
+		CS = plt.contour(Tkc,Ksc,dK.T,V,colors='w')
+		plt.clabel(CS,inline=1,fontsize=10)
+		fOut = "I_"+IDs[ns]+".png"
+		print("Writing figure %s"%(fOut))
+		plt.savefig(fOut,dpi=figQ)
+		plt.close('all')
