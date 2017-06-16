@@ -82,6 +82,7 @@ for ns in range(NumS):
 
 	cMap = "jet"
 	vNorm = LogNorm(vmin=vMin,vmax=vMax)
+	Tkc = Tkc-Tkc.min()
 	if (doDelI):
 		plt.pcolormesh(Tkc,Ksc,Isc0.T,norm=vNorm,cmap=cMap)
 		plt.yscale('log')
