@@ -20,11 +20,11 @@ dt = 10.0
 Rin = 2
 Rout = 20
 Nth = 8
-Nr = 48
+Nr = 18
 Np = 96
-Nk = 40
+Nk = 50
 kMin = 1.0
-kMax = 1500.0
+kMax = 1250.0
 Na = 10
 
 NumPSD = len(IDs)
