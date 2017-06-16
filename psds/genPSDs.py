@@ -10,8 +10,11 @@ import os
 
 BaseP = "~/Work/IonTrap/Data/"
 IDs = ["p","Hep","Hepp","O6"]
-f0 = "IonKap"
-fW = "IonKap"
+f0 = "IonMax"
+fW = "IonMax"
+
+#f0 = "IonKap"
+#fW = "IonKap"
 
 #IDs = ["p"]
 

@@ -16,7 +16,8 @@ lfmv.ppInit()
 
 BaseP = "~/Work/IonTrap/Data/KCyl/"
 IDs = ["p","Hep","Hepp","O6"]
-doDelI = False #Subtract background (t=0)
+Labs = ["H+","He+","He++","O6"]
+doDelI = True #Subtract background (t=0)
 doI = True
 
 x0 = -1.0
@@ -77,6 +78,9 @@ for ns in range(NumS):
 	#Now make figures
 	vMin = 1.0e0
 	vMax = 1.0e+6
+	vMin = 1.0e-1
+	vMax = 1.0e+5
+
 	cMap = "jet"
 	vNorm = LogNorm(vmin=vMin,vmax=vMax)
 	if (doDelI):
@@ -90,6 +94,9 @@ for ns in range(NumS):
 		plt.close('all')
 	if (doI):
 		plt.pcolormesh(Tkc,Ksc,Isc.T,norm=vNorm,cmap=cMap)
+		plt.xlabel("Time [s]")
+		plt.ylabel("Energy [keV]")
+		plt.title("Intensity, %s"%(Labs[ns]))
 		plt.yscale('log')
 		plt.ylim([50,1.0e+3])
 		plt.colorbar()
