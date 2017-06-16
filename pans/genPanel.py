@@ -81,11 +81,12 @@ fig = plt.figure(figsize=figSize,tight_layout=True)
 
 Ns = len(Spcs)
 Nt = len(Ts)
-HRs = 4*np.ones(Ns+2)
-HRs[-1] = 0.1
-HRs[0] = 0.25
+Nrow = Ns+1
+HRs = 4*np.ones(Nrow)
+HRs[-1] = 0.25
+#HRs[0] = 0.25
 
-gs = gridspec.GridSpec(Ns+2,Nt,height_ratios=list(HRs))
+gs = gridspec.GridSpec(Nrow,Nt,height_ratios=list(HRs))
 
 for t in range(Nt):
 	xi,yi,dBz = getFld(vtiDir,Ts[t],dt)
@@ -123,12 +124,12 @@ for t in range(Nt):
 		plt.xlim(fldDomX); plt.ylim(fldDomY)
 
 		#Add spacecraft marker
-		cSC = plt.Circle((x0, y0), dR, ec='springgreen',fill=False,linewidth=0.75)
+		cSC = plt.Circle((x0, y0), dR, ec='springgreen',fill=False,linewidth=1.25)
 		Ax.add_artist(cSC)
 
 AxCbar = plt.subplot(gs[-1,:])
 plt.colorbar(pPlt, cax=AxCbar,orientation='horizontal',label=pLab)
-plt.suptitle(titS,fontsize="large")
+#plt.suptitle(titS,fontsize="large")
 		
 #gs.tight_layout(fig)
 plt.savefig(figName,dpi=figQ)

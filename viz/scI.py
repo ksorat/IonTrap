@@ -77,7 +77,7 @@ for ns in range(NumS):
 
 	#Now make figures
 	vMin = 1.0e+0
-	vMax = 1.0e+6
+	vMax = 1.0e+5
 
 	cMap = "jet"
 	vNorm = LogNorm(vmin=vMin,vmax=vMax)
