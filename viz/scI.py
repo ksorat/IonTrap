@@ -16,7 +16,7 @@ lfmv.ppInit()
 
 BaseP = "~/Work/IonTrap/Data/KCyl/"
 IDs = ["p","Hep","Hepp","O6"]
-doDelI = True #Subtract background (t=0)
+doDelI = False #Subtract background (t=0)
 doI = True
 
 x0 = -1.0
