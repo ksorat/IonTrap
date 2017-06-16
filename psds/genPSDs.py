@@ -10,6 +10,9 @@ import os
 
 BaseP = "~/Work/IonTrap/Data/"
 IDs = ["p","Hep","Hepp","O6"]
+f0 = "IonKap"
+fW = "IonKap"
+
 #IDs = ["p"]
 
 #Uniform parameters
@@ -17,6 +20,7 @@ T0 = 3235.85
 Tf = 4500.0
 dt = 10.0
 
+kap = 3.0
 Rin = 2
 Rout = 20
 Nth = 8
@@ -52,7 +56,8 @@ for i in range(NumPSD):
 	pID = "population"+str(1)
 	popInfo = et.SubElement(pInfo,pID)
 	popInfo.set("files",BaseP+MaskP[i])
-	popInfo.set("weighting","ionMax")
+	popInfo.set("weighting",fW)
+	popInfo.set("kappa",str(kap))
 
 	#Timing data
 	tInfo = et.SubElement(iDeck,"timing")
@@ -65,7 +70,8 @@ for i in range(NumPSD):
 	oInfo.set("relativistic","T")
 	oInfo.set("doFlux","T")
 	oInfo.set("background","T")
-	oInfo.set("f0","ionMax")
+	oInfo.set("f0",f0)
+	oInfo.set("kappa",str(kap))
 	
 	#Phasespace
 	psInfo = et.SubElement(iDeck,"phasespace")
