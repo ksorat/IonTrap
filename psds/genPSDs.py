@@ -9,7 +9,7 @@ import os
 
 
 BaseP = "~/Work/IonTrap/Data/"
-IDs = ["p","Hep","Hepp"]
+IDs = ["p","Hep","Hepp","O6"]
 #IDs = ["p"]
 
 #Uniform parameters

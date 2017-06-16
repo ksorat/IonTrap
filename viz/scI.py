@@ -16,13 +16,13 @@ lfmv.ppInit()
 
 BaseP = "~/Work/IonTrap/Data/KCyl/"
 IDs = ["p","Hep","Hepp"]
-doDelI = False #Subtract background (t=0)
+doDelI = True #Subtract background (t=0)
 doI = True
 
 x0 = -1.0
 y0 = 6.0
 
-Nk = 100
+Nk = 250
 iScl = 1.0/(4.0*np.pi)
 figQ = 300
 Sig = -1
@@ -31,7 +31,7 @@ TINY = 1.0e-2
 imeth = 'linear'
 
 NumS = len(IDs)
-NumS = 1
+#NumS = 1
 for ns in range(NumS):
 	
 	fIn = os.path.expanduser('~') + "/Work/IonTrap/Data/KCyl/KCyl_" + IDs[ns] + ".h5"
@@ -75,7 +75,7 @@ for ns in range(NumS):
 		dK[i,:] = dkScl*Isc[i,:]/dK0	
 
 	#Now make figures
-	vMin = 1.0
+	vMin = 1.0e0
 	vMax = 1.0e+6
 	cMap = "jet"
 	vNorm = LogNorm(vmin=vMin,vmax=vMax)
@@ -94,10 +94,10 @@ for ns in range(NumS):
 		plt.ylim([50,1.0e+3])
 		plt.colorbar()
 		#V = [1.2,2,5,10,20,50,100]
-		V = [1.5,2,4,5,6,7,8,9,10]
-		print(V)
-		CS = plt.contour(Tkc,Ksc,dK.T,V,colors='w')
-		plt.clabel(CS,inline=1,fontsize=10)
+		#V = [1.5,2,4,5,6,7,8,9,10]
+		#print(V)
+		#CS = plt.contour(Tkc,Ksc,dK.T,V,colors='w')
+		#plt.clabel(CS,inline=1,fontsize=10)
 		fOut = "I_"+IDs[ns]+".png"
 		print("Writing figure %s"%(fOut))
 		plt.savefig(fOut,dpi=figQ)
