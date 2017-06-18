@@ -32,7 +32,7 @@ TINY = 1.0e-2
 imeth = 'linear'
 
 NumS = len(IDs)
-#NumS = 1
+NumS = 1
 for ns in range(NumS):
 	
 	fIn = os.path.expanduser('~') + "/Work/IonTrap/Data/KCyl/KCyl_" + IDs[ns] + ".h5"
@@ -83,6 +83,10 @@ for ns in range(NumS):
 	cMap = "jet"
 	vNorm = LogNorm(vmin=vMin,vmax=vMax)
 	Tkc = Tkc-Tkc.min()
+
+	#Ax = plt.gca()
+	#Ax.set_axis_bgcolor('black')
+	#Ax.patch.set_facecolor('black')
 	if (doDelI):
 		plt.pcolormesh(Tkc,Ksc,Isc0.T,norm=vNorm,cmap=cMap)
 		plt.yscale('log')
@@ -93,19 +97,34 @@ for ns in range(NumS):
 		plt.savefig(fOut,dpi=figQ)
 		plt.close('all')
 	if (doI):
+		plt.close('all')
+		plt.rc_context({'axes.edgecolor':'cyan', 'xtick.color':'cyan', 'ytick.color':'cyan', 'figure.facecolor':'cyan'})
+
+		fig = plt.figure(0)
+
+		fig.patch.set_facecolor('black')
+
 		plt.pcolormesh(Tkc,Ksc,Isc.T,norm=vNorm,cmap=cMap)
-		plt.xlabel("Time [s]")
-		plt.ylabel("Energy [keV]")
-		plt.title("Intensity, %s"%(Labs[ns]))
+		Ax = plt.gca()
+		Ax.set_axis_bgcolor('black')
+		plt.xlabel("Time [s]",fontsize="large")
+		plt.ylabel("Energy [keV]",fontsize="large")
+		plt.title("Intensity, %s"%(Labs[ns]),fontsize="large")
 		plt.yscale('log')
 		plt.ylim([50,1.0e+3])
-		plt.colorbar()
+		plt.xlim([Ksc.min(),Ksc.max()])
+		cb = plt.colorbar()
+		cb.set_label("Intensity\ns-1 cm-2 keV-1 ster-1",fontsize='large',color='cyan')
+		Ax.xaxis.label.set_color('cyan')
+		Ax.yaxis.label.set_color('cyan')
+
 		#V = [1.2,2,5,10,20,50,100]
 		#V = [1.5,2,4,5,6,7,8,9,10]
 		#print(V)
 		#CS = plt.contour(Tkc,Ksc,dK.T,V,colors='w')
 		#plt.clabel(CS,inline=1,fontsize=10)
+		
 		fOut = "I_"+IDs[ns]+".png"
 		print("Writing figure %s"%(fOut))
-		plt.savefig(fOut,dpi=figQ)
+		plt.savefig(fOut,dpi=figQ,facecolor='black')
 		plt.close('all')
