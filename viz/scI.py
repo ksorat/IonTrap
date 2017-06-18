@@ -32,7 +32,7 @@ TINY = 1.0e-2
 imeth = 'linear'
 
 NumS = len(IDs)
-NumS = 1
+#NumS = 1
 for ns in range(NumS):
 	
 	fIn = os.path.expanduser('~') + "/Work/IonTrap/Data/KCyl/KCyl_" + IDs[ns] + ".h5"
