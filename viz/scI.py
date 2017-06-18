@@ -25,14 +25,15 @@ y0 = 6.0
 
 Nk = 250
 iScl = 1.0/(4.0*np.pi)
+iScl = 1.0
 figQ = 300
 Sig = -1
-TINY = 1.0e-2
+TINY = 1.0e-8
 
 imeth = 'linear'
 
-NumS = len(IDs)
-#NumS = 1
+#NumS = len(IDs)
+NumS = 1
 for ns in range(NumS):
 	
 	fIn = os.path.expanduser('~') + "/Work/IonTrap/Data/KCyl/KCyl_" + IDs[ns] + ".h5"
@@ -67,17 +68,17 @@ for ns in range(NumS):
 	Isc = iScl*Isc
 	
 	Ik0 = Isc[0,:]
-	Ind = Ik0<TINY
-	dK0 = Ik0
-	dK0[Ind] = 1.0
-	dkScl[Ind] = 0.0
+	#Ind = Ik0<TINY
+	#dK0 = Ik0
+	#dK0[Ind] = 1.0
+	#dkScl[Ind] = 0.0
 
 	for i in range(Nt):
 		Isc0[i,:] = Isc[i,:] - Ik0
-		dK[i,:] = dkScl*Isc[i,:]/dK0	
+		#dK[i,:] = dkScl*Isc[i,:]/dK0	
 
 	#Now make figures
-	vMin = 1.0e+0
+	vMin = 1.0
 	vMax = 1.0e+5
 
 	cMap = "jet"
