@@ -23,9 +23,9 @@ doI = True
 x0 = -1.0
 y0 = 6.0
 
-Nk = 250
+Nk = 100
 iScl = 1.0/(4.0*np.pi)
-iScl = 1.0
+#iScl = 1.0
 figQ = 300
 Sig = -1
 TINY = 1.0e-8
@@ -69,16 +69,16 @@ for ns in range(NumS):
 	
 	Ik0 = Isc[0,:]
 	#Ind = Ik0<TINY
-	#dK0 = Ik0
+	dK0 = Ik0
 	#dK0[Ind] = 1.0
 	#dkScl[Ind] = 0.0
 
 	for i in range(Nt):
 		Isc0[i,:] = Isc[i,:] - Ik0
-		#dK[i,:] = dkScl*Isc[i,:]/dK0	
+		dK[i,:] = Isc[i,:]/dK0	
 
 	#Now make figures
-	vMin = 1.0
+	vMin = 1.0e+0
 	vMax = 1.0e+5
 
 	cMap = "jet"
@@ -121,8 +121,10 @@ for ns in range(NumS):
 
 		#V = [1.2,2,5,10,20,50,100]
 		#V = [1.5,2,4,5,6,7,8,9,10]
+		#V = [10,50,100,500]
+		#V = [25,50]
 		#print(V)
-		#CS = plt.contour(Tkc,Ksc,dK.T,V,colors='w')
+		#CS = Ax.contour(Tkc,Ksc,dK.T,V,colors='k')
 		#plt.clabel(CS,inline=1,fontsize=10)
 		
 		fOut = "I_"+IDs[ns]+".png"

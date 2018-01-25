@@ -18,10 +18,10 @@ fEq  = Base + "eqSlc/eqSlc.*.vti database"
 cMapI = "viridis"
 cMapF = "RdGy"
 
-kSlc = 200
+kSlc = 100
 titS = "%d keV Intensity"%(kSlc)
 #Ibds = [10.0,1.0e+6]
-Ibds = [1.0e+3,1.0e+6]
+Ibds = [1.0e+2,5.0e+3]
 dMin = 0.01
 
 fbds = [-35,35]
@@ -106,7 +106,7 @@ DrawPlots()
 
 #Do time loop
 if (doVid):
-	pyv.doTimeLoop(T0=T0,dt=dt,Save=True,tLabPos=(0.175,0.05),Trim=True,bCol="#000000")#,Trim=True)
+	pyv.doTimeLoop(Ns=1,T0=T0,dt=dt,Save=True,tLabPos=(0.175,0.05),Trim=True,bCol="#000000")#,Trim=True)
 	
 	
 	pyv.makeVid(Clean=True,outVid=outVid,tScl=5)

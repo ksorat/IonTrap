@@ -24,7 +24,7 @@ def getPs(h5pFile,t,dt=10.0,doSort=True):
 	tSlc = np.int(t/dt)
 	t,xeq = lfmpp.getH5pT(h5pFile,"xeq",tSlc)
 	t,yeq = lfmpp.getH5pT(h5pFile,"yeq",tSlc)
-	t,kev = lfmpp.getH5pT(h5pFile,"kev",tSlc)
+	t,kev = lfmpp.getH5pT(h5pFile,"keveq",tSlc)
 
 	t,mp = lfmpp.getH5pT(h5pFile,"mp",tSlc)
 	t,tl = lfmpp.getH5pT(h5pFile,"tl",tSlc)
@@ -54,7 +54,10 @@ titS = "Injection"
 dt = 10.0
 
 
-figSize = (18,14)
+figSize = (14,10)
+figSize = (13,9)
+#figSize = (8,6)
+
 figQ = 300 #DPI
 figName = "fpPanel.png"
 
@@ -63,7 +66,8 @@ fldBds = [-35,35]
 fldCMap = "RdGy_r"
 fldOpac = 0.5
 fldDomX = [-15,13]
-fldDomY = [-20,20]
+#fldDomY = [-20,20]
+fldDomY = [-10,20]
 
 pBds = [10,400]
 pCMap = "cool"
@@ -76,14 +80,16 @@ vtiDir = RootDir + "/" + "eqSlc"
 
 #Do figures
 lfmv.initLatex()
-fig = plt.figure(figsize=figSize,tight_layout=True)
+fig = plt.figure(figsize=figSize)#,tight_layout=True)
 #fig = plt.figure()
 
 Ns = len(Spcs)
 Nt = len(Ts)
-Nrow = Ns+1
+Nrow = Ns+1+1
 HRs = 4*np.ones(Nrow)
-HRs[-1] = 0.25
+HRs[-1] = 0.5
+HRs[-2] = 0.25
+
 #HRs[0] = 0.25
 
 gs = gridspec.GridSpec(Nrow,Nt,height_ratios=list(HRs))
@@ -99,7 +105,7 @@ for t in range(Nt):
 		if (t == 0):
 			plt.ylabel(Spcs[s],fontsize="large")
 		elif (t == Nt-1):
-			plt.ylabel("GSM-Y [Re]")
+			plt.ylabel("SM-Y [Re]")
 			Ax.yaxis.tick_right()
 			Ax.yaxis.set_label_position("right")
 		else:
@@ -109,7 +115,7 @@ for t in range(Nt):
 		if (s < Ns-1):
 			plt.setp(Ax.get_xticklabels(),visible=False)
 		else:
-			plt.xlabel('GSM-X [Re]')
+			plt.xlabel('SM-X [Re]')
 		if (s == 0):
 			plt.title("T = %d [s]"%Ts[t])
 
@@ -119,7 +125,7 @@ for t in range(Nt):
 
 		#Now do particles
 		xs,ys,zs = getPs(h5pf,Ts[t],dt)
-		pPlt = Ax.scatter(xs,ys,s=pSize,marker=pMark,c=zs,vmin=pBds[0],vmax=pBds[1],cmap=pCMap,linewidth=pLW)
+		pPlt = Ax.scatter(xs,ys,s=pSize,marker=pMark,c=zs,vmin=pBds[0],vmax=pBds[1],cmap=pCMap,linewidth=pLW,edgecolors='k')
 		plt.axis('scaled')
 		plt.xlim(fldDomX); plt.ylim(fldDomY)
 
@@ -133,4 +139,5 @@ plt.colorbar(pPlt, cax=AxCbar,orientation='horizontal',label=pLab)
 		
 #gs.tight_layout(fig)
 plt.savefig(figName,dpi=figQ)
+lfmv.trimFig(figName)
 
